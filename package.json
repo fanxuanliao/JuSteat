@@ -1,0 +1,11 @@
+{
+  "name": "JSFinal",
+  "version": "1.0.0",
+  "dependencies": {
+    "animejs": "^3.2.1",
+    "serve": "^11.3.2"
+  },
+  "scripts": {
+    "run": "serve public"
+  }
+}
