@@ -21,9 +21,18 @@ let dialogH = 50, dialogW = 200;
 let maxStringLen = (cnvW/2-pad*2-innerPad*2) % tSize; // 計算單行對話框可容納最大字數
 console.log(maxStringLen);
 
+let GameOverImg = "../assets/Second_Round-End-1.png", SuccessImg = "../assets/Round-Success-3-1.png";
+let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
+
 let A="這是外送員的問題，我沒有辦法幫您處理。", B="好的，我們會退費，並幫您盡速處理。", C="我不確定這要怎麼處理......";
 // let D="這是外送員的問題，我沒有辦法幫您處理。",E="好的，我們會退費，並幫您盡速處理。",F="我不確定這要怎麼處理...... ";
 // let G=" 對於這部分，可能是您的錯覺...... ",H="外送員送貨總是會有些意外，還請您多擔待。",I="非常抱歉，外送員遲到導致您的餐點涼掉了，這裡會附上折價券作為補償。";
+
+function preload(){
+    // GameOverImg = loadImage("../assets/Second_Round-End-1.png");
+    // SuccessImg = loadImage("../assets/Round-Success-3-1.png");
+}
+
 function setup(){
     cnv = createCanvas(cnvW, cnvH);
     // cnv.position(cnvX,cnvY);
@@ -107,10 +116,10 @@ function updateDialog(string){
 
         console.log(`You get ${scores} points.`);
 
-        if(scores>=80) {
+        if(scores>=60) {
             string = '沒有，謝謝你(客戶已離開)';
         }
-        else if(scores<80 && scores>60) {
+        else if(scores>=40) {
             string = '沒有。(客戶已離開)';
         }
         else {
@@ -126,6 +135,8 @@ function updateDialog(string){
         textX = cnvX + cnvW - dialogW - pad +innerPad;
         textY = pad +innerPad + dialogH;
         text(string, textX, textY);
+
+        showResult();
     }
 
     else{
@@ -219,26 +230,33 @@ function mousePressed() {
 
     // Check if mouse is inside the choices rects
     //選A
-    if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad && mouseY < cnvY + cnvH - 300 + innerPad*2 + tSize){
-        chooseA();
+    else if (!missionClear){
+        if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad && mouseY < cnvY + cnvH - 300 + innerPad*2 + tSize){
+            chooseA();
+        }
+        //選B
+        else if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad*2 + innerPad*2 + tSize && mouseY < cnvY + cnvH - 300 + pad*2 + innerPad*2*2 + tSize*2){
+            chooseB();
+        }
+        //選C
+        else if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad*3 + innerPad*2*2 + tSize*2 && mouseY < cnvY + cnvH - 300 + pad + innerPad*2*2*2 + tSize*3){
+            chooseC();
+        }
     }
-    //選B
-    else if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad*2 + innerPad*2 + tSize && mouseY < cnvY + cnvH - 300 + pad*2 + innerPad*2*2 + tSize*2){
-        chooseB();
-    }
-    //選C
-    else if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad*3 + innerPad*2*2 + tSize*2 && mouseY < cnvY + cnvH - 300 + pad + innerPad*2*2*2 + tSize*3){
-        chooseC();
-    }
+
 }
 
 function mouseMoved(){
-    if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY+cnvH-300+pad && mouseY < cnvY+cnvH - pad ){
-        cursor('pointer');
+    if (!missionClear){
+        if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY+cnvH-300+pad && mouseY < cnvY+cnvH - pad ){
+            cursor('pointer');
+        }
+        else{
+            cursor('default');
+        }
     }
-    else{
-        cursor('default')
-    }
+    else cursor('default');
+
 }
 function chooseA(){
     console.log("A");
@@ -483,3 +501,25 @@ function chooseC(string){
 
 }
 
+//結算畫面
+function showResult(){
+    resizeCanvas($(document).width(), $(document).height());
+    cnv.clear();
+    let resultImg;
+    if (scores>=40){
+        // 顯示星星畫面
+        resultImg = createImg(SuccessImg);
+    }
+    else{
+        // Game Over
+        resultImg = createImg(GameOverImg);
+    }
+
+    resultImg.addClass("resultImg")
+    let restartBtn = createImg(RestartImg);
+    restartBtn.addClass("button redirect restart");
+    let backBtn = createImg(BackToMainImg);
+    backBtn.addClass("button redirect back");
+    restartBtn.mousePressed(function() {location.reload();});
+    backBtn.mousePressed(function(){location.href='index.html';});
+}
