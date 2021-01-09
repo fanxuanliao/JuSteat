@@ -2,7 +2,7 @@
 let scores = 0; //紀錄分數
 let start=true; //紀錄是否為初始值
 let missionClear=false; //紀錄是否完成關卡
-let count=true;//false代表是最後一則訊息，要加分
+
 //LOGO黃：rgb(253, 208, 21) 藍：rgb(0, 176, 232) 橘：rgb(255,152,56);
 let yello = "rgb(253, 208, 21)";
 let blue = "rgb(0, 176, 232)";
@@ -23,15 +23,7 @@ console.log(maxStringLen);
 
 let GameOverImg = "../assets/Second_Round-End-1.png", SuccessImg = "../assets/Round-Success-3-1.png";
 let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
-
 let A="這是外送員的問題，我沒有辦法幫您處理。", B="好的，我們會退費，並幫您盡速處理。", C="我不確定這要怎麼處理......";
-// let D="這是外送員的問題，我沒有辦法幫您處理。",E="好的，我們會退費，並幫您盡速處理。",F="我不確定這要怎麼處理...... ";
-// let G=" 對於這部分，可能是您的錯覺...... ",H="外送員送貨總是會有些意外，還請您多擔待。",I="非常抱歉，外送員遲到導致您的餐點涼掉了，這裡會附上折價券作為補償。";
-
-function preload(){
-    // GameOverImg = loadImage("../assets/Second_Round-End-1.png");
-    // SuccessImg = loadImage("../assets/Round-Success-3-1.png");
-}
 
 function setup(){
     cnv = createCanvas(cnvW, cnvH);
@@ -77,11 +69,7 @@ function draw(){
     textSize(tSize);
     textFont("Noto Sans TC");
     textAlign(LEFT, TOP);
-    text(stringB,textX,textY)
-
-
-    // updateChoice("我調查了您的訂單紀錄，訂單跟您平時的一樣，可能是您的錯覺。","好的，我會再向餐廳反映您的用餐體驗，不知道可否請您再詳細描述餐點？","不好意思，這點可能得待我們向餐廳詢問，畢竟您這邊是個案，我們沒有收到類似的訊息")
-
+    text(stringB,textX,textY);
 }
 
 function drawDialog(x,y,w,h,c){
@@ -209,28 +197,14 @@ function updateChoice(){
 
 // When the user clicks the mouse
 function mousePressed() {
-    //press之後客戶繼續抱怨
-    //如果第一關沒有完成會出現對話
-    // if(){
-    //     scores=0;
-    //     updateDialog("我的餐點訂單很奇怪，怎麼會這樣？");
-    //
-    // }
-    //如果第二關沒有限時內送達
-    // if(){
-    //     scores=0;
-    //     updateDialog("我的餐點涼了，我要賠償。");
-    //
-    // }
-    //正常出現
+    //起始對話
     if (start){
         updateDialog("我的餐點訂單很奇怪，怎麼會這樣？");
         start=false;
     }
-
     // Check if mouse is inside the choices rects
-    //選A
     else if (!missionClear){
+        //選A
         if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad && mouseY < cnvY + cnvH - 300 + innerPad*2 + tSize){
             chooseA();
         }
@@ -267,21 +241,13 @@ function chooseA(){
         B="呃... 這應該是你自己的問題，你應該一開始就跟外送員講。";
         C="非常抱歉，再麻煩您拍照佐證，我們會盡速幫您處理。";
         updateDialog("而且還缺東缺西的，到底是怎麼回事？");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
-    }
+   }
     else if(A=="我認為這是外送員的問題，您應該找外送員做處理。"){
         scores+=5;
         A="對於這部分，可能是您的錯覺......";
         B="外送員送貨總是會有些意外，還請您多擔待。 ";
         C="非常抱歉，外送員遲到導致您的餐點涼掉了，這裡會附上折價券作為補償。";
         updateDialog("我的餐點涼了，我要賠償。");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
 
     else if(A=="對於這部分，可能是您的錯覺......"){
@@ -290,21 +256,13 @@ function chooseA(){
         B="對於這個部份我們深感抱歉，還請您多擔待。";
         C="這方面我們是無法控制的，真是抱歉。";
         updateDialog("而且我等得有夠久，完全不懂預估時間是用來做什麼的！");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
-    }
+   }
     else if(A=="預估時間是僅供參考的，這點就只能麻煩您多擔待了...！"){
-        scores+=0;
+        scores+=5;
         A="我調查了您的訂單紀錄，訂單跟您平時的一樣，可能是您的錯覺。";
         B="好的，我會再向餐廳反映您的用餐體驗，不知道可否請您再詳細描述餐點？";
         C="不好意思，這點可能得待我們向餐廳詢問，畢竟您這邊是個案，我們沒有收到類似的訊息";
         updateDialog("這次餐點的味道很奇怪，跟平常不太一樣。");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
     //判斷現在的A，計算分數和update下一個ABC
     else if(A=="我調查了您的訂單紀錄，訂單跟您平時的一樣，可能是您的錯覺。"){
@@ -331,59 +289,42 @@ function chooseA(){
     }
     else if (A=="不好意思造成您的不開心，我們會立刻糾正該名外送員在上班時間抽菸的行為。"){
         //最後一則訊息都要加
-        missionClear = true;
         scores+=10;
+        missionClear = true;
         updateDialog("請問還有其他問題嗎？");
-
     }
 }
 
 function chooseB(){
     console.log("B");
     if(B=="好的，我們會退費，並幫您盡速處理。"){
-        scores+=5;
+        scores+=10;
         A="我認為這是外送員的問題，您應該找外送員做處理。";
         B="呃... 這應該是你自己的問題，你應該一開始就跟外送員講。";
         C="非常抱歉，再麻煩您拍照佐證，我們會盡速幫您處理。";
         updateDialog("而且還缺東缺西的，到底是怎麼回事？");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
-    }
+   }
     else if(B=="呃... 這應該是你自己的問題，你應該一開始就跟外送員講。"){
-        scores+=5;
+        scores+=0;
         A="對於這部分，可能是您的錯覺......";
         B="外送員送貨總是會有些意外，還請您多擔待。";
         C="非常抱歉，外送員遲到導致您的餐點涼掉了，這裡會附上折價券作為補償。";
         updateDialog("我的餐點涼了，我要賠償。");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
-    }
+  }
 
     else if(B=="外送員送貨總是會有些意外，還請您多擔待。"){
-        scores+=0;
+        scores+=5;
         A="預估時間是僅供參考的，這點就只能麻煩您多擔待了...！";
         B="對於這個部份我們深感抱歉，還請您多擔待。";
         C="這方面我們是無法控制的，真是抱歉。";
         updateDialog("而且我等得有夠久，完全不懂預估時間是用來做什麼的！");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
     else if(B=="對於這個部份我們深感抱歉，還請您多擔待。"){
-        scores+=0;
+        scores+=10;
         A="我調查了您的訂單紀錄，訂單跟您平時的一樣，可能是您的錯覺。";
         B="好的，我會再向餐廳反映您的用餐體驗，不知道可否請您再詳細描述餐點？";
         C="不好意思，這點可能得待我們向餐廳詢問，畢竟您這邊是個案，我們沒有收到類似的訊息";
         updateDialog("這次餐點的味道很奇怪，跟平常不太一樣。");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
     //判斷現在的B，計算分數和update下一個B
     else if(B=="好的，我會再向餐廳反映您的用餐體驗，不知道可否請您再詳細描述餐點？"){
@@ -413,8 +354,8 @@ function chooseB(){
     }
     else if (B=="外送員抽菸屬於個人行為，與外送平台沒有任何的關係。"){
         //最後一則訊息都要加
-        missionClear = true;
         scores+=0;
+        missionClear = true;
         updateDialog("請問還有其他問題嗎？");
     }
 }
@@ -422,38 +363,26 @@ function chooseB(){
 function chooseC(string){
     console.log("C");
     if(C=="我不確定這要怎麼處理......"){
-        scores+=5;
+        scores+=0;
         A="我認為這是外送員的問題，您應該找外送員做處理。";
         B="呃... 這應該是你自己的問題，你應該一開始就跟外送員講。";
         C="非常抱歉，再麻煩您拍照佐證，我們會盡速幫您處理。";
         updateDialog("而且還缺東缺西的，到底是怎麼回事？");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
     else if(C=="非常抱歉，再麻煩您拍照佐證，我們會盡速幫您處理。"){
-        scores+=5;
+        scores+=10;
         A="對於這部分，可能是您的錯覺......";
         B="外送員送貨總是會有些意外，還請您多擔待。 ";
         C="非常抱歉，外送員遲到導致您的餐點涼掉了，這裡會附上折價券作為補償。";
         updateDialog("我的餐點涼了，我要賠償。");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
 
     else if(C=="非常抱歉，外送員遲到導致您的餐點涼掉了，這裡會附上折價券作為補償。"){
-        scores+=0;
+        scores+=10;
         A="預估時間是僅供參考的，這點就只能麻煩您多擔待了...！";
         B="對於這個部份我們深感抱歉，還請您多擔待。";
         C="這方面我們是無法控制的，真是抱歉。";
         updateDialog("而且我等得有夠久，完全不懂預估時間是用來做什麼的！");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
     else if( C=="這方面我們是無法控制的，真是抱歉。"){
         scores+=0;
@@ -461,10 +390,6 @@ function chooseC(string){
         B="好的，我會再向餐廳反映您的用餐體驗，不知道可否請您再詳細描述餐點？";
         C="不好意思，這點可能得待我們向餐廳詢問，畢竟您這邊是個案，我們沒有收到類似的訊息";
         updateDialog("這次餐點的味道很奇怪，跟平常不太一樣。");
-        //最後一則訊息都要加
-        // count=false;
-        // if(count==false) scores+=5;
-
     }
     //判斷現在的C，計算分數和update下一個C
     else if(C=="不好意思，這點可能得待我們向餐廳詢問，畢竟您這邊是個案，我們沒有收到類似的訊息"){
@@ -493,9 +418,9 @@ function chooseC(string){
         updateDialog("外送員會抽菸，感覺很臭很不衛生。");
     }
     else if (C=="有關外送員抽菸的行為，我們會再做確認，謝謝提醒。"){
+        scores+=5;
         //最後一則訊息都要加
         missionClear = true;
-        scores+=5;
         updateDialog("請問還有其他問題嗎？");
     }
 
@@ -509,6 +434,8 @@ function showResult(){
     if (scores>=40){
         // 顯示星星畫面
         resultImg = createImg(SuccessImg);
+        let txt = createSpan('Mission Complete!');
+        txt.addClass("resultTxt");
     }
     else{
         // Game Over
