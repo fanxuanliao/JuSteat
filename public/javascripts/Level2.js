@@ -122,6 +122,8 @@ function preload() {
 
 function setup() {
     cnv = createCanvas(1200, 670);
+    // cnv.center();
+    cnv.parent("container");
     motorcycle = new Motorcycle();
     traffic = new Traffic();
     traffic2 = new Traffic2();
