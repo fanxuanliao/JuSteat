@@ -7,18 +7,18 @@ let button = [];
 
 let pickingSideCanvas;
 
-let GameOverImg = "../assets/Second_Round-End-1.png";
-let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
+let GameOverImg = "./assets/Second_Round-End-1.png";
+let RestartImg = "./assets/Restart.png", BackToMainImg = "./assets/回到主畫面.png";
 
 function preload(){
     /*
      *   packageOne ~ packageFour分別對應到4個不同的訂單圖案
      *   目前還沒有圖所以用之前作業的plane.jpg示意
      */
-    packageOne = loadImage('../assets/Level1/bag1.png');
-    packageTwo = loadImage('../assets/Level1/bag2.png');
-    packageThree = loadImage('../assets/Level1/bag03.png');
-    packageFour = loadImage('../assets/Level1/bag04.png');
+    packageOne = loadImage('./assets/Level1/bag1.png');
+    packageTwo = loadImage('./assets/Level1/bag2.png');
+    packageThree = loadImage('./assets/Level1/bag03.png');
+    packageFour = loadImage('./assets/Level1/bag04.png');
 }
 
 function setup() {

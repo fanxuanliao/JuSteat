@@ -21,8 +21,8 @@ let dialogH = 50, dialogW = 200;
 let maxStringLen = (cnvW/2-pad*2-innerPad*2) % tSize; // 計算單行對話框可容納最大字數
 console.log(maxStringLen);
 
-let GameOverImg = "../assets/Second_Round-End-1.png", SuccessImg = "../assets/Round-Success-3-1.png";
-let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
+let GameOverImg = "./assets/Second_Round-End-1.png", SuccessImg = "./assets/Round-Success-3-1.png";
+let RestartImg = "./assets/Restart.png", BackToMainImg = "./assets/回到主畫面.png";
 let A="這是外送員的問題，我沒有辦法幫您處理。", B="好的，我們會退費，並幫您盡速處理。", C="我不確定這要怎麼處理......";
 
 function setup(){
