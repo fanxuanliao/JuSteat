@@ -12,14 +12,14 @@ let item_missed;
 let draggingSideCanvas;
 let canvasBackGroundImg;
 
-let GameOverImg = "../assets/Second_Round-End-1.png", SuccessImg = "../assets/Round-Success-1-1.png";
-let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
+let GameOverImg = "./../assets/Second_Round-End-1.png", SuccessImg = "./../assets/Round-Success-1-1.png";
+let RestartImg = "./../assets/Restart.png", BackToMainImg = "./../assets/回到主畫面.png";
 
 function preload(){
-    foodImgOne = loadImage('../assets/Level1/drink.png');
-    foodImgTwo = loadImage('../assets/Level1/fries.png');
-    foodImgThree = loadImage('../assets/Level1/burgur.png');
-    foodImgFour = loadImage('../assets/Level1/ICE.png');
+    foodImgOne = loadImage('./../assets/Level1/drink.png');
+    foodImgTwo = loadImage('./../assets/Level1/fries.png');
+    foodImgThree = loadImage('./../assets/Level1/burgur.png');
+    foodImgFour = loadImage('./../assets/Level1/ICE.png');
 
     canvasBackGroundImg = loadImage('../assets/Level1/bikeidle.gif');
 }
