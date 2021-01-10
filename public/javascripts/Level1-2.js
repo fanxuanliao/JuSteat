@@ -16,12 +16,12 @@ let GameOverImg = "../assets/Second_Round-End-1.png", SuccessImg = "../assets/Ro
 let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
 
 function preload(){
-    foodImgOne = loadImage('../assets/第一關/drink.png');
-    foodImgTwo = loadImage('../assets/第一關/fries.png');
-    foodImgThree = loadImage('../assets/第一關/burgur.png');
-    foodImgFour = loadImage('../assets/第一關/ICE.png');
+    foodImgOne = loadImage('../assets/Level1/drink.png');
+    foodImgTwo = loadImage('../assets/Level1/fries.png');
+    foodImgThree = loadImage('../assets/Level1/burgur.png');
+    foodImgFour = loadImage('../assets/Level1/ICE.png');
 
-    canvasBackGroundImg = loadImage('../assets/第一關/bikeidle.gif');
+    canvasBackGroundImg = loadImage('../assets/Level1/bikeidle.gif');
 }
 
 function setup() {
