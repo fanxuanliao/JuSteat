@@ -16,17 +16,19 @@ a {
 }
 
 .pickingSide {
-    /*
-    width: 1000px;
-    height: 700px;
-     */
-    /*
-    background-color: rgb(226, 129, 129);
-     */
+
 }
 
+#go_button {
+    background-image: url(../assets/button_go.png);
+    background-size: cover;
+    width: 90px;
+    height: 72px;
+    background-color: #FF9838;
+    border: 0px;
+}
 
-.button .game{
+#button{
     background-color: #FF9838;
     height: 70px;
     width: 300px;
@@ -34,41 +36,10 @@ a {
     top: 45px;
     left: 25px;
 }
-.button .page{
-
-}
-
-#sitebody{
-    width: 600px;
-    margin: 0 auto;
-    font-size: 13px;
-}
 
 #header{
     background-color: #FFD4D4;
     height: 80px;
     text-align: center;
     line-height: 80px;
-}
-
-#sidebar_left{
-    background-color: #FFECC9;
-    width: 120px;
-    height: 400px;
-    text-align: center;
-    line-height: 400px;
-    float: left;
-}
-
-#sidebar_right{
-    background-color: #FFECC9;
-    width: 120px;
-    height: 400px;
-    text-align: center;
-    line-height: 400px;
-    float: right;
-}
-
-.intro{
-    /*z-index: ;*/
 }

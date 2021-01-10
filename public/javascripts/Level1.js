@@ -1,5 +1,3 @@
-let defaultPackage;
-
 let packageOne;
 let packageTwo;
 let packageThree;
@@ -12,14 +10,11 @@ function preload(){
     /*
      *   packageOne ~ packageFour分別對應到4個不同的訂單圖案
      *   目前還沒有圖所以用之前作業的plane.jpg示意
-     *   defaultPackage的存在是為了解決某個我不知道為什麼的bug, 後面解釋
      */
-    // defaultPackage = loadImage('images/plane.jpg');
-
-    packageOne = loadImage('assets/plane.jpg');
-    packageTwo = loadImage('assets/plane.jpg');
-    packageThree = loadImage('assets/plane.jpg');
-    packageFour = loadImage('assets/plane.jpg');
+    packageOne = loadImage('../assets/第一關/burgur.png');
+    packageTwo = loadImage('../assets/第一關/burgur.png');
+    packageThree = loadImage('../assets/第一關/burgur.png');
+    packageFour = loadImage('../assets/第一關/burgur.png');
 }
 
 function setup() {
@@ -29,11 +24,6 @@ function setup() {
     let pickingSideCanvas = createCanvas(850, 670);
     pickingSideCanvas.position(410,58);
 
-    /*
-    * Button是一個class，見下面class Button的註解。
-    * button[0]一樣是為了解決那個不知道為什麼的bug。
-    * */
-    // button[0] = new Button(1000,700, defaultPackage);
 
     button[0] = new Button(200,150, packageOne);
     button[1] = new Button(500,150, packageTwo);
@@ -51,36 +41,29 @@ function showIntro(){
 
 function draw() {
     background(249);
+    showIntro();
     for(let i = 0; i < button.length; i++) {
         button[i].display();
-        if (button[i].selected==true){
-            console.log(i+"selected");
-        }
     }
-    showIntro();
 }
 
 function mousePressed(){
     /*
-    *  偵測滑鼠點擊，if(游標在button[i]的範圍)，則button[i-1].selected=true，
+    *  偵測滑鼠點擊，if(游標在button[i]的範圍)，則button[i].selected=true，
     *   因此在display()裡面就會設定button圖片透明度變低，達到"選取訂單"的效果。
     * */
     for(let i = 0; i < button.length; i++){
+
         if(button[i].over()){
-            console.log('button:'+i+' been clicked');
             button[i].selected = true;
-            // button[i].selected = false; //以免上一個點的button是button[i-1]。例如上次點button[1]，這次點button[2]。
-            //console.log('button'+(i-1)+'='+button[i-1].selected);
-            button[i].display();
-        } else {     
-            console.log('button:'+i+' not been clicked');
+        } else {
             button[i].selected = false;
         }
     }
 }
 
 class Button {
-    constructor(inX, inY, inImg, select=false) {
+    constructor(inX, inY, inImg, select = false) {
         this.x = inX;
         this.y = inY;
         this.img = inImg;
@@ -88,21 +71,16 @@ class Button {
     }
 
     display(){
-        // for (let btn in button){
-        //     console.log(typeof (btn.selected));
-        // }
-        if(this.selected===true){
+        /*
+        * 原本是想說if(button[i].selected==true)，則做透明度處理，
+        * */
+        if(this.selected){
             tint(255,126);
         } else {
             noTint();
         }
+
         image(this.img, this.x, this.y);
-
-        /*
-        * 原本是想說if(button[i].selected==true)，則做透明度處理，
-        * 但不知為何它會讓button[i+1]做透明處理，所以前面mousePressed()裡面才會讓button[i-1].selected=true。
-        * */
-
     }
 
     over(){
