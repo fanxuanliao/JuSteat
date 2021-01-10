@@ -324,7 +324,7 @@ function showResult(){
 
         leftBtn = createImg(NextLevelImg);
         leftBtn.addClass("button redirect next");
-        leftBtn.mousePressed(function() {location.href='Level2.html';});
+        leftBtn.mousePressed(function() {location.href='Level3.html';});
     }
     else{
         // Game Over
