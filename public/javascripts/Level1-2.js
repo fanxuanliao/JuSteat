@@ -21,7 +21,7 @@ function preload(){
     foodImgThree = loadImage('./assets/Level1/burgur.png');
     foodImgFour = loadImage('./assets/Level1/ICE.png');
 
-    canvasBackGroundImg = loadImage('../assets/Level1/bikeidle.gif');
+    canvasBackGroundImg = loadImage('./assets/Level1/bikeidle.gif');
 }
 
 function setup() {
