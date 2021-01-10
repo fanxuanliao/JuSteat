@@ -204,14 +204,19 @@ class Selected_food{
     }
 }
 
+function start(){
+    let rmGuide = document.getElementById("guide_button_two");
+    rmGuide.remove();
+}
+
 function showResult(){
     draggingSideCanvas.clear();
 
     let rmPhoneSide = document.getElementById("phoneSide");
     rmPhoneSide.remove();
 
-    let rmButtonPage = document.getElementById("button page");
-    rmButtonPage.remove();
+    //let rmButtonPage = document.getElementById("button page");
+    //rmButtonPage.remove();
 
     let rmDraggingSide = document.getElementById("draggingSide");
     rmDraggingSide.remove();

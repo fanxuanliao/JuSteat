@@ -16,6 +16,7 @@ a {
     top: 50%;
     left: 50%;
     margin: -335px 0 0 -600px;
+    z-index: 0;
 }
 
 #phoneSide {
@@ -37,6 +38,7 @@ a {
     height: 72px;
     background-color: #FF9838;
     border: 0px;
+    z-index: 0;
 }
 #check_button {
     background-image: url(../assets/button_check.png);
@@ -45,6 +47,7 @@ a {
     height: 72px;
     background-color: #FF9838;
     border: 0px;
+    z-index: 0;
 }
 
 #button{
@@ -89,4 +92,32 @@ a {
 
 .back{
     margin-left: 30%;
+}
+
+#guide_button {
+    background-image: url(../assets/Guide/level1.png);
+    background-size: cover;
+    border: 0px;
+    width: 1200px;
+    height: 670px;
+    z-index: 1;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -335px 0 0 -600px;
+}
+
+#guide_button_two {
+    background-image: url(../assets/Guide/level1-2.png);
+    background-size: cover;
+    border: 0px;
+    width: 1200px;
+    height: 670px;
+    z-index: 1;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -335px 0 0 -600px;
 }

@@ -7,6 +7,8 @@ let button = [];
 
 let pickingSideCanvas;
 
+let canvasBackgroundImg;
+
 let GameOverImg = "./assets/Second_Round-End-1.png";
 let RestartImg = "./assets/Restart.png", BackToMainImg = "./assets/回到主畫面.png";
 
@@ -19,6 +21,8 @@ function preload(){
     packageTwo = loadImage('./assets/Level1/bag2.png');
     packageThree = loadImage('./assets/Level1/bag03.png');
     packageFour = loadImage('./assets/Level1/bag04.png');
+
+    canvasBackgroundImg = loadImage('./assets/Level1/L1BG.png');
 }
 
 function setup() {
@@ -29,6 +33,9 @@ function setup() {
     pickingSideCanvas.position(350,0); //410
     pickingSideCanvas.parent('container');
 
+    canvasBackgroundImg.width = canvasBackgroundImg.width * 1.15;
+    canvasBackgroundImg.height = canvasBackgroundImg.height * 1.15;
+
     button[0] = new Button(200,150, packageOne);
     button[1] = new Button(500,150, packageTwo);
     button[2] = new Button(200,400, packageThree);
@@ -36,7 +43,9 @@ function setup() {
 }
 
 function draw() {
-    background(100);
+    background(255,202,88);
+    image(canvasBackgroundImg,0,0);
+
     for(let i = 0; i < button.length; i++) {
         button[i].display();
     }
@@ -95,6 +104,11 @@ class Button {
             return false;
         }
     }
+}
+
+function start(){
+    let rmGuide = document.getElementById("guide_button");
+    rmGuide.remove();
 }
 
 function check(){
