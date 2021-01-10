@@ -79,14 +79,18 @@ a {
     margin-top: 35%;
 }
 
-.restart{
-    margin-left: 55%;
-}
-
 .button{
     cursor: pointer;
 }
 
-.back{
+.next{
     margin-left: 30%;
+}
+
+.restart {
+    margin-left: 30%;
+}
+
+.back {
+    margin-left: 55%;
 }

@@ -10,6 +10,8 @@ a {
   position: absolute;
   top: 10%;
 }
+
+
 .resultImg {
   position: absolute;
   width: 80%;
@@ -35,10 +37,14 @@ a {
   margin-top: 35%;
 }
 
+.next{
+  margin-left: 30%;
+}
+
 .restart {
-  margin-left: 55%;
+  margin-left: 30%;
 }
 
 .back {
-  margin-left: 30%;
+  margin-left: 55%;
 }

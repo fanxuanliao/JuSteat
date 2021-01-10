@@ -2,6 +2,7 @@ var lastAddTime = 0;  //上次生成物件的時間（第一道）
 var lastAddTime2 = 0; //上次生成物件的時間（第二道)
 var lastAddTime3 = 0; //上次生成物件的時間（第三道)
 var gametime = 0;
+var heart_x = 40;
 let traffics = [];    //第一道的物件list
 let traffics2 = [];   //第二道的物件list
 let traffics3 = [];   //第三道的物件list
@@ -10,7 +11,7 @@ let lifes = [];       //愛心的list
 var backimg;          //背景圖片
 var backimg_loc = 0;  //背景圖片位置
 let GameOverImg = "./assets/Level2/Second_Round-End-1.png", SuccessImg = "./assets/Level2/Round-Success-2-1.png";
-let RestartImg = "./assets/Level2/Restart.png", BackToMainImg = "./assets/Level2/回到主畫面.png";
+let RestartImg = "./assets/Level2/Restart.png", BackToMainImg = "./assets/Level2/回到主畫面.png", NextLevelImg = "./assets/Level2/Next.png";
 
 // 外送員class
 class Motorcycle{
@@ -35,7 +36,8 @@ class Motorcycle{
 // 第一條路的class
 class Traffic{
     constructor(){
-        this.img = traffics_pic[getRandom(1,4)];
+        this.flag = getRandom(1,4);
+        this.img = traffics_pic[this.flag];
         this.w = 120;
         this.h = 100;
         this.x = 1200;
@@ -52,7 +54,8 @@ class Traffic{
 //第二條路的class
 class Traffic2{
     constructor(){
-        this.img = traffics_pic[getRandom(1,4)];
+        this.flag = getRandom(1,4);
+        this.img = traffics_pic[this.flag];
         this.w = 120;
         this.h = 100;
         this.x = 1200;
@@ -69,7 +72,8 @@ class Traffic2{
 //第三條路的class
 class Traffic3{
     constructor(){
-        this.img = traffics_pic[getRandom(1,4)];
+        this.flag = getRandom(1,4);
+        this.img = traffics_pic[this.flag];
         this.w = 120;
         this.h = 100;
         this.x = 1200;
@@ -109,11 +113,10 @@ function preload() {
         traffics_pic[j]= loadImage(str2);
     }
 
-    var x = 40;
     for(var i=0; i<5; i++){
-        lifes[i] = createSprite(x,30);
+        lifes[i] = createSprite(heart_x,30);
         lifes[i].addImage(loadImage('./assets/heart.png'));
-        x += 60;
+        heart_x += 60;
     }
 }
 
@@ -177,10 +180,23 @@ function draw() {
         c.move();
         c.show();
         if(motorcycle.hits(c)){ //碰撞偵測
-            delete c.x;
-            console.log(motorcycle.life)
-            motorcycle.life -= 1;
-            lifes[motorcycle.life].remove(); // 移除一顆心
+            if(c.flag !=3 ){
+                delete c.x;
+                console.log(motorcycle.life)
+                heart_x -= 60;
+                motorcycle.life -= 1;
+                lifes[motorcycle.life].remove(); // 移除一顆心
+            }
+            else if(c.flag == 3){
+                delete c.x;
+                console.log(motorcycle.life)
+                if(motorcycle.life<5){
+                    lifes[motorcycle.life] = createSprite(heart_x,30) // 加上一顆心
+                    lifes[motorcycle.life].addImage(loadImage('./assets/heart.png'));
+                    motorcycle.life += 1;
+                    heart_x += 60;
+                }
+            }
         }
         if(motorcycle.life == 0){
             showResult();
@@ -203,10 +219,24 @@ function draw() {
         c.move();
         c.show();
         if(motorcycle.hits(c)){
-            delete c.x;
-            console.log(motorcycle.life)
-            motorcycle.life -= 1;
-            lifes[motorcycle.life].remove();
+            if(c.flag !=3 ){
+                delete c.x;
+                console.log(motorcycle.life)
+                heart_x -= 60;
+                motorcycle.life -= 1;
+                lifes[motorcycle.life].remove(); // 移除一顆心
+            }
+            else if(c.flag == 3){
+                delete c.x;
+                console.log(motorcycle.life)
+                if(motorcycle.life<5){
+                    lifes[motorcycle.life] = createSprite(heart_x,30) // 加上一顆心
+                    lifes[motorcycle.life].addImage(loadImage('./assets/heart.png'));
+                    motorcycle.life += 1;
+                    heart_x += 60;
+                }
+
+            }
         }
         if(motorcycle.life == 0){
             showResult();
@@ -229,10 +259,23 @@ function draw() {
         c.move();
         c.show();
         if(motorcycle.hits(c)){
-            delete c.x;
-            console.log(motorcycle.life)
-            motorcycle.life -= 1;
-            lifes[motorcycle.life].remove();
+            if(c.flag !=3 ){
+                delete c.x;
+                console.log(motorcycle.life)
+                heart_x -= 60;
+                motorcycle.life -= 1;
+                lifes[motorcycle.life].remove(); // 移除一顆心
+            }
+            else if(c.flag == 3){
+                delete c.x;
+                console.log(motorcycle.life)
+                if(motorcycle.life<5){
+                    lifes[motorcycle.life] = createSprite(heart_x,30) // 加上一顆心
+                    lifes[motorcycle.life].addImage(loadImage('./assets/heart.png'));
+                    motorcycle.life += 1;
+                    heart_x += 60;
+                }
+            }
         }
         if(motorcycle.life == 0){
             showResult();
@@ -266,6 +309,8 @@ function draw() {
 
 //結算畫面
 function showResult(){
+    let leftBtn;
+    let rightBtn;
     resizeCanvas($(document).width(), $(document).height());
     cnv.clear();
     let resultImg;
@@ -274,17 +319,25 @@ function showResult(){
         resultImg = createImg(SuccessImg);
         let txt = createSpan('Mission Complete!');
         txt.addClass("resultTxt");
+
+        leftBtn = createImg(NextLevelImg);
+        leftBtn.addClass("button redirect next");
+        leftBtn.mousePressed(function() {location.href='Level3.html';});
     }
     else{
         // Game Over
         resultImg = createImg(GameOverImg);
+
+        leftBtn = createImg(RestartImg);
+        leftBtn.addClass("button redirect restart");
+        leftBtn.mousePressed(function() {location.reload();});
     }
 
     resultImg.addClass("resultImg")
-    let restartBtn = createImg(RestartImg);
-    restartBtn.addClass("button redirect restart");
-    let backBtn = createImg(BackToMainImg);
-    backBtn.addClass("button redirect back");
-    restartBtn.mousePressed(function() {location.reload();});
-    backBtn.mousePressed(function(){location.href='index.html';});
+    rightBtn = createImg(BackToMainImg);
+    rightBtn.addClass("button redirect back");
+    rightBtn.mousePressed(function(){location.href='index.html';});
+
+
+
 }
