@@ -13,7 +13,7 @@ let draggingSideCanvas;
 let canvasBackGroundImg;
 
 let GameOverImg = "./assets/Second_Round-End-1.png", SuccessImg = "./assets/Round-Success-1-1.png";
-let RestartImg = "./assets/Restart.png", BackToMainImg = "./assets/回到主畫面.png";
+let RestartImg = "./assets/Restart.png", BackToMainImg = "./assets/回到主畫面.png", NextLevelImg = "./assets/Level2/Next.png";
 
 function preload(){
     foodImgOne = loadImage('./assets/Level1/drink.png');
@@ -211,7 +211,8 @@ function start(){
 
 function showResult(){
     draggingSideCanvas.clear();
-
+    let leftBtn;
+    let rightBtn;
     let rmPhoneSide = document.getElementById("phoneSide");
     rmPhoneSide.remove();
 
@@ -225,15 +226,17 @@ function showResult(){
 
     if(selected_food[0].selected && selected_food[1].selected && selected_food[2].selected && selected_food[3].selected) {
         resultImg = createImg(SuccessImg);
+        leftBtn = createImg(NextLevelImg);
+        leftBtn.addClass("button redirect next");
+        leftBtn.mousePressed(function() {location.href='Level3.html';});
     } else {
-        resultImg = createImg(GameOverImg);
+        leftBtn = createImg(RestartImg);
+        leftBtn.addClass("button redirect restart");
+        leftBtn.mousePressed(function() {location.reload();});
     }
 
     resultImg.addClass("resultImg")
-    let restartBtn = createImg(RestartImg);
-    restartBtn.addClass("button redirect restart");
-    let backBtn = createImg(BackToMainImg);
-    backBtn.addClass("button redirect back");
-    restartBtn.mousePressed(function() {location.reload();});
-    backBtn.mousePressed(function(){location.href='index.html';});
+    rightBtn = createImg(BackToMainImg);
+    rightBtn.addClass("button redirect back");
+    rightBtn.mousePressed(function(){location.href='index.html';});
 }
