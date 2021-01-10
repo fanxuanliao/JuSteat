@@ -6,3 +6,39 @@ body {
 a {
   color: #00B7FF;
 }
+.p5Canvas {
+  position: absolute;
+  top: 10%;
+}
+.resultImg {
+  position: absolute;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.resultTxt {
+  position: absolute;
+  font-size: 100px;
+  color: white;
+  position: absolute;
+  font-size: 80px;
+  color: white;
+  left: 50%;
+  top: 30%;
+  margin-left: -333px;
+}
+
+.redirect {
+  position: absolute;
+  z-index: 99;
+  width: 15%;
+  margin-top: 35%;
+}
+
+.restart {
+  margin-left: 55%;
+}
+
+.back {
+  margin-left: 30%;
+}
