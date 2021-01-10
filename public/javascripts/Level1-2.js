@@ -228,7 +228,7 @@ function showResult(){
         resultImg = createImg(SuccessImg);
         leftBtn = createImg(NextLevelImg);
         leftBtn.addClass("button redirect next");
-        leftBtn.mousePressed(function() {location.href='Level3.html';});
+        leftBtn.mousePressed(function() {location.href='Level2.html';});
     } else {
         leftBtn = createImg(RestartImg);
         leftBtn.addClass("button redirect restart");
