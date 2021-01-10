@@ -45,6 +45,29 @@ body {
   margin-left: 55%;
 }
 
+#containerLevel3 {
+  width: 900px;
+  height: 900px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -450px 0 0 -450px;
+  z-index: 0;
+}
+
+button.level3 {
+  background-image: url(../assets/Guide/level3.png);
+  background-size: cover;
+  border: 0px;
+  width: 900px;
+  height: 900px;
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -450px 0 0 -450px;
+}
+
 #container {
   width: 1200px;
   height: 670px;

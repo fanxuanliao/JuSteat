@@ -1,6 +1,7 @@
 // let dialogs = []; //儲存已存在的對話框們
 let scores = 0; //紀錄分數
-let start=true; //紀錄是否為初始值
+let GUIDE=true; //紀錄是否為導覽頁
+let START=true; //紀錄是否為第一次互動
 let missionClear=false; //紀錄是否完成關卡
 
 //LOGO黃：rgb(253, 208, 21) 藍：rgb(0, 176, 232) 橘：rgb(255,152,56);
@@ -25,11 +26,17 @@ let GameOverImg = "./assets/Second_Round-End-1.png", SuccessImg = "./assets/Roun
 let RestartImg = "./assets/Restart.png", BackToMainImg = "./assets/回到主畫面.png";
 let A="這是外送員的問題，我沒有辦法幫您處理。", B="好的，我們會退費，並幫您盡速處理。", C="我不確定這要怎麼處理......";
 
+function start(){
+    let rmGuide = document.getElementById("guide_button");
+    rmGuide.remove();
+    GUIDE = false;
+}
+
 function setup(){
     cnv = createCanvas(cnvW, cnvH);
     // cnv.position(cnvX,cnvY);
-    cnv.center("horizontal");
-    cnv.parent("cnvContainer");
+    // cnv.center("horizontal");
+    cnv.parent("containerLevel3");
     textSize(tSize);
     textFont("Noto Sans TC");
     textAlign(LEFT, TOP);
@@ -198,12 +205,12 @@ function updateChoice(){
 // When the user clicks the mouse
 function mousePressed() {
     //起始對話
-    if (start){
+    if (START && !GUIDE){
         updateDialog("我的餐點訂單很奇怪，怎麼會這樣？");
-        start=false;
+        START=false;
     }
     // Check if mouse is inside the choices rects
-    else if (!missionClear){
+    else if (!missionClear && !GUIDE){
         //選A
         if (mouseX > cnvX+pad && mouseX < cnvX + cnvW - pad && mouseY > cnvY + cnvH - 300 + pad && mouseY < cnvY + cnvH - 300 + innerPad*2 + tSize){
             chooseA();
