@@ -29,8 +29,8 @@ function setup() {
     *   把canvas放在手機介面的右邊，故設定position為(410,58)，這是慢慢調出來的結果。
     * */
     draggingSideCanvas = createCanvas(850, 670);
-    draggingSideCanvas.position(410,58);
-
+    draggingSideCanvas.position(350,0);
+    draggingSideCanvas.parent('container');
     //canvasBackGroundImg.width = canvasBackGroundImg.width * 0.98;
     //canvasBackGroundImg.height = canvasBackGroundImg.height * ;
 
@@ -56,12 +56,12 @@ function setup() {
 
 function draw() {
     background(100);
-    fill(221,0,0);
-    stroke(51);
-    strokeWeight(10);
 
     image(canvasBackGroundImg,0,175);
 
+    fill(255,202,56);
+    stroke(51);
+    strokeWeight(10);
     rect(0,0,850,175);  //置放欄紅色底部
 
     for(let j = 0; j < space.length; j++){
@@ -205,6 +205,8 @@ class Selected_food{
 }
 
 function showResult(){
+    draggingSideCanvas.clear();
+
     let rmPhoneSide = document.getElementById("phoneSide");
     rmPhoneSide.remove();
 
@@ -221,8 +223,6 @@ function showResult(){
     } else {
         resultImg = createImg(GameOverImg);
     }
-
-    draggingSideCanvas.clear();
 
     resultImg.addClass("resultImg")
     let restartBtn = createImg(RestartImg);

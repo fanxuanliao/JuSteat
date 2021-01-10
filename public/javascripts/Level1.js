@@ -26,8 +26,8 @@ function setup() {
     *   把canvas放在手機介面的右邊，故設定position為(410,58)，這是慢慢調出來的結果。
     * */
     pickingSideCanvas = createCanvas(850, 670);
-    pickingSideCanvas.position(410,58);
-
+    pickingSideCanvas.position(350,0); //410
+    pickingSideCanvas.parent('container');
 
     button[0] = new Button(200,150, packageOne);
     button[1] = new Button(500,150, packageTwo);
@@ -51,9 +51,13 @@ function mousePressed(){
 
         if(button[i].over()){
             button[i].selected = true;
-        } else {
-            button[i].selected = false;
+            for(let j = 0; j < button.length; j++) {
+                if(i!==j) {
+                    button[j].selected = false;
+                }
+            }
         }
+
     }
 }
 
@@ -91,6 +95,37 @@ class Button {
             return false;
         }
     }
+}
+
+function check(){
+    let resultImg;
+
+    if(button[2].selected){
+        self.location.href='Level1-2.html';
+    } else {
+        resultImg = createImg(GameOverImg);
+
+        pickingSideCanvas.clear();
+
+        let rmPhoneSide = document.getElementById("phoneSide");
+        rmPhoneSide.remove();
+
+        let rmButtonPage = document.getElementById("button page");
+        rmButtonPage.remove();
+
+        let rmPickingSide = document.getElementById("pickingSide");
+        rmPickingSide.remove();
+
+        resultImg.addClass("resultImg")
+        let restartBtn = createImg(RestartImg);
+        restartBtn.addClass("button redirect restart");
+        let backBtn = createImg(BackToMainImg);
+        backBtn.addClass("button redirect back");
+        restartBtn.mousePressed(function() {location.reload();});
+        backBtn.mousePressed(function(){location.href='index.html';});
+    }
+
+
 }
 
 function showResult(){
