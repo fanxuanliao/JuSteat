@@ -8,11 +8,6 @@ body {
   cursor: pointer;
 }
 
-.p5Canvas {
-  position: absolute;
-  top: 10%;
-}
-
 .resultImg {
   position: absolute;
   width: 80%;
@@ -38,12 +33,25 @@ body {
   margin-top: 35%;
 }
 
+.next {
+  margin-left: 30%;
+}
+
 .restart {
-  margin-left: 55%;
+  margin-left: 30%;
 }
 
 .back {
-  margin-left: 30%;
+  margin-left: 55%;
+}
+
+#container {
+  width: 1200px;
+  height: 670px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -335px 0 0 -600px;
 }
 
 .container {
