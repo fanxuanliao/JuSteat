@@ -1,6 +1,7 @@
 var lastAddTime = 0;  //上次生成物件的時間（第一道）
 var lastAddTime2 = 0; //上次生成物件的時間（第二道)
 var lastAddTime3 = 0; //上次生成物件的時間（第三道)
+var gametime = 0;
 let traffics = [];    //第一道的物件list
 let traffics2 = [];   //第二道的物件list
 let traffics3 = [];   //第三道的物件list
@@ -8,6 +9,8 @@ let traffics_pic = [];//障礙物圖片的圖list
 let lifes = [];       //愛心的list
 var backimg;          //背景圖片
 var backimg_loc = 0;  //背景圖片位置
+let GameOverImg = "./assets/Level2/Second_Round-End-1.png", SuccessImg = "./assets/Level2/Round-Success-2-1.png";
+let RestartImg = "./assets/Level2/Restart.png", BackToMainImg = "./assets/Level2/回到主畫面.png";
 
 // 外送員class
 class Motorcycle{
@@ -20,12 +23,12 @@ class Motorcycle{
         this.life = 5;
     }
     //show image
-    show(){                                       
-        image(this.img,this.x,this.y,this.w,this.h);       
+    show(){
+        image(this.img,this.x,this.y,this.w,this.h);
     }
     //collider
-    hits(traffics){               
-        return collideRectRect(this.x, this.y, this.w, this.h, traffics.x, traffics.y, traffics.w, traffics.h); 
+    hits(traffics){
+        return collideRectRect(this.x, this.y, this.w, this.h, traffics.x, traffics.y, traffics.w, traffics.h);
     }
 }
 // 我把他分成三個軌道獨立
@@ -40,10 +43,10 @@ class Traffic{
     }
     //障礙物移動
     move(){
-        this.x -= 5;
+        this.x -= 10;
     }
-    show(){                                       
-        image(this.img,this.x,this.y,this.w,this.h);       
+    show(){
+        image(this.img,this.x,this.y,this.w,this.h);
     }
 }
 //第二條路的class
@@ -57,10 +60,10 @@ class Traffic2{
     }
     //障礙物移動
     move(){
-        this.x -= 5;
+        this.x -= 10;
     }
-    show(){                                       
-        image(this.img,this.x,this.y,this.w,this.h);       
+    show(){
+        image(this.img,this.x,this.y,this.w,this.h);
     }
 }
 //第三條路的class
@@ -74,10 +77,10 @@ class Traffic3{
     }
     //障礙物移動
     move(){
-        this.x -= 5;
+        this.x -= 10;
     }
-    show(){                                       
-        image(this.img,this.x,this.y,this.w,this.h);       
+    show(){
+        image(this.img,this.x,this.y,this.w,this.h);
     }
 }
 //取整數random function
@@ -85,41 +88,52 @@ function getRandom(min,max){
     return Math.floor(Math.random()*max)+min;
 };
 //背景循環function
-function backGroundPicture(){ 
+function backGroundPicture(){
 
     if(backimg_loc > (-1)*(backimg.width)/2){
-        backimg_loc -= 4;                          
+        backimg_loc -= 8;
     }
     else{
         backimg_loc = 0;
-    }                         
-    image(backimg,backimg_loc,0,backimg.width,backimg.height);  
- }
+    }
+    image(backimg,backimg_loc,0,backimg.width,backimg.height);
+}
 
 function preload() {
 
-    backimg = loadImage('assets/第二關/2b-2.png');
-    motorcycle_people = loadImage('assets/第二關/biek.png');
+    backimg = loadImage('./assets/Level2/2bdouble.png');
+    motorcycle_people = loadImage('./assets/Level2/biek.png');
 
-    for (let j=1; j<=4; j++) {             
-        var str2 ="assets/第二關/t"+j+".png";
-        traffics_pic[j]= loadImage(str2);       
+    for (let j=1; j<=4; j++) {
+        var str2 ="./assets/Level2/t"+j+".png";
+        traffics_pic[j]= loadImage(str2);
     }
 
     var x = 40;
     for(var i=0; i<5; i++){
         lifes[i] = createSprite(x,30);
-        lifes[i].addImage(loadImage('assets/第二關/heart.png'));
+        lifes[i].addImage(loadImage('./assets/heart.png'));
         x += 60;
     }
 }
 
 function setup() {
-    createCanvas(1200, 670);
-    motorcycle = new Motorcycle(); 
+    cnv = createCanvas(1200, 670);
+    motorcycle = new Motorcycle();
     traffic = new Traffic();
     traffic2 = new Traffic2();
     traffic3 = new Traffic3();
+}
+var myVar = setInterval(myTimer, 1000);
+
+function myTimer() {
+    var d = new Date();
+    var t = d.toLocaleTimeString();
+
+}
+
+function myStopFunction() {
+    clearInterval(myVar);
 }
 
 function draw() {
@@ -127,84 +141,108 @@ function draw() {
     backGroundPicture();
     motorcycle.show()
     // random產生障礙物 1st
-    var interval = random(4000,6000);           
+    var interval = random(4000,6000);
+    var nowtime = 60 - parseInt((millis() - gametime)/1000);
+    console.log(nowtime);
+    textAlign(LEFT);
+    textSize(60);
+    text("Time: "+nowtime,950,0,width/2, height/2);
+
     if (millis()-lastAddTime > interval) {
-        traffics.push(new Traffic());      
-        lastAddTime = millis();              
+        traffics.push(new Traffic());
+        lastAddTime = millis();
     }
     // random產生障礙物 2nd
-    var interval2 = random(6000,8000);           
+    var interval2 = random(6000,8000);
     if (millis()-lastAddTime2 > interval2) {
-        traffics2.push(new Traffic2());      
-        lastAddTime2 = millis();              
+        traffics2.push(new Traffic2());
+        lastAddTime2 = millis();
     }
     // random產生障礙物 3rd
-    var interval3 = random(5000,9000);           
+    var interval3 = random(5000,9000);
     if (millis()-lastAddTime3 > interval3) {
-        traffics3.push(new Traffic3());      
-        lastAddTime3 = millis();              
+        traffics3.push(new Traffic3());
+        lastAddTime3 = millis();
     }
     //1st
     for(let c of traffics){
-        c.move();                            
-        c.show();    
+        if (nowtime <= 0){
+            delete c.x;
+            for(var i=0; i<5; i++){
+                lifes[i].remove();
+            }
+            showResult();
+            noLoop();
+        }
+        c.move();
+        c.show();
         if(motorcycle.hits(c)){ //碰撞偵測
-            delete c.x;  
+            delete c.x;
             console.log(motorcycle.life)
             motorcycle.life -= 1;
-            lifes[motorcycle.life].remove(); // 移除一顆心                           
+            lifes[motorcycle.life].remove(); // 移除一顆心
         }
-        if(motorcycle.life == 0){ 
-            textAlign(CENTER);        
-            textSize(70);             
-            text("game over",width/2, height/2);
-            noLoop(); 
+        if(motorcycle.life == 0){
+            showResult();
+            noLoop();
         }
         if(c.x<0){
             delete c.x;
-        }                      
+        }
     }
     //2nd
     for(let c of traffics2){
-        c.move();                            
-        c.show();    
+        if (nowtime <= 0){
+            delete c.x;
+            for(var i=0; i<5; i++){
+                lifes[i].remove();
+            }
+            showResult();
+            noLoop();
+        }
+        c.move();
+        c.show();
         if(motorcycle.hits(c)){
-            delete c.x;  
+            delete c.x;
             console.log(motorcycle.life)
             motorcycle.life -= 1;
-            lifes[motorcycle.life].remove();                              
+            lifes[motorcycle.life].remove();
         }
         if(motorcycle.life == 0){
-            textAlign(CENTER);        
-            textSize(70);             
-            text("game over",width/2, height/2);
-            noLoop(); 
+            showResult();
+            noLoop();
         }
         if(c.x<0){
             delete c.x;
-        }                      
+        }
     }
     //3rd
     for(let c of traffics3){
-        c.move();                            
-        c.show();    
+        if (nowtime <= 0){
+            delete c.x;
+            for(var i=0; i<5; i++){
+                lifes[i].remove();
+            }
+            showResult();
+            noLoop();
+        }
+        c.move();
+        c.show();
         if(motorcycle.hits(c)){
-            delete c.x;  
+            delete c.x;
             console.log(motorcycle.life)
             motorcycle.life -= 1;
-            lifes[motorcycle.life].remove();                              
+            lifes[motorcycle.life].remove();
         }
         if(motorcycle.life == 0){
-            textAlign(CENTER);        
-            textSize(70);             
-            text("game over",width/2, height/2);
-            noLoop(); 
+            showResult();
+            noLoop();
         }
         if(c.x<0){
             delete c.x;
-        }                     
+        }
     }
-    
+
     //操控外送員
     if (keyWentDown(DOWN_ARROW)){
         motorcycle.y += 180;
@@ -226,3 +264,27 @@ function draw() {
     drawSprites();
 }
 
+//結算畫面
+function showResult(){
+    resizeCanvas($(document).width(), $(document).height());
+    cnv.clear();
+    let resultImg;
+    if (motorcycle.life>0){
+        // 顯示星星畫面
+        resultImg = createImg(SuccessImg);
+        let txt = createSpan('Mission Complete!');
+        txt.addClass("resultTxt");
+    }
+    else{
+        // Game Over
+        resultImg = createImg(GameOverImg);
+    }
+
+    resultImg.addClass("resultImg")
+    let restartBtn = createImg(RestartImg);
+    restartBtn.addClass("button redirect restart");
+    let backBtn = createImg(BackToMainImg);
+    backBtn.addClass("button redirect back");
+    restartBtn.mousePressed(function() {location.reload();});
+    backBtn.mousePressed(function(){location.href='index.html';});
+}
