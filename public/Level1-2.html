@@ -9,19 +9,24 @@
 </head>
 <body>
 
-<div class="phoneSide" style="text-align: center">
+<div id="phoneSide" style="text-align: center">
 
     <img src="assets/iphone2.png" width="250" style="position: relative;top: 30px">
     <div id="button">
-        <img src="assets/button_go.png" width="90px" style="position: relative; right: 0px">
+        <button type="button" id="go_button" onclick="showResult()"></button>
     </div>
 </div>
 
 
-<div class="draggingSide">
+<div id="draggingSide">
     <div id="level_one_canvas">
         <script src="javascripts/Level1-2.js"></script>
     </div>
+</div>
+
+<div id="button page">
+    <img src="./assets/回到主畫面.png" onclick="location.href='index.html';" width="150px">
+    <img src="./assets/Restart.png" onclick="location.reload();" width="150px">
 </div>
 
 </body>

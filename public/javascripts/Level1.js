@@ -5,23 +5,27 @@ let packageFour;
 
 let button = [];
 
+let pickingSideCanvas;
+
+let GameOverImg = "../assets/Second_Round-End-1.png";
+let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
 
 function preload(){
     /*
      *   packageOne ~ packageFour分別對應到4個不同的訂單圖案
      *   目前還沒有圖所以用之前作業的plane.jpg示意
      */
-    packageOne = loadImage('../assets/第一關/burgur.png');
-    packageTwo = loadImage('../assets/第一關/burgur.png');
-    packageThree = loadImage('../assets/第一關/burgur.png');
-    packageFour = loadImage('../assets/第一關/burgur.png');
+    packageOne = loadImage('../assets/第一關/bag1.png');
+    packageTwo = loadImage('../assets/第一關/bag2.png');
+    packageThree = loadImage('../assets/第一關/bag03.png');
+    packageFour = loadImage('../assets/第一關/bag04.png');
 }
 
 function setup() {
     /*
     *   把canvas放在手機介面的右邊，故設定position為(410,58)，這是慢慢調出來的結果。
     * */
-    let pickingSideCanvas = createCanvas(850, 670);
+    pickingSideCanvas = createCanvas(850, 670);
     pickingSideCanvas.position(410,58);
 
 
@@ -31,17 +35,8 @@ function setup() {
     button[3] = new Button(500,400, packageFour)
 }
 
-function showIntro(){
-    let introBackgournd = color(100,100,100);
-    // noStoke();
-    fill(introBackgournd);
-    tint(255,200)
-    rect(0, 0, 850, 670, 20);
-}
-
 function draw() {
-    background(249);
-    showIntro();
+    background(100);
     for(let i = 0; i < button.length; i++) {
         button[i].display();
     }
@@ -68,11 +63,14 @@ class Button {
         this.y = inY;
         this.img = inImg;
         this.selected = select;  //一開始都設定為未選取
+
+        this.img.width = this.img.width * 0.5;
+        this.img.height = this.img.height * 0.5;
     }
 
     display(){
         /*
-        * 原本是想說if(button[i].selected==true)，則做透明度處理，
+        * if(button[i].selected==true)，則做透明度處理，
         * */
         if(this.selected){
             tint(255,126);
@@ -93,4 +91,29 @@ class Button {
             return false;
         }
     }
+}
+
+function showResult(){
+    pickingSideCanvas.clear();
+
+    let rmPhoneSide = document.getElementById("phoneSide");
+    rmPhoneSide.remove();
+
+    let rmButtonPage = document.getElementById("button page");
+    rmButtonPage.remove();
+
+    let rmPickingSide = document.getElementById("pickingSide");
+    rmPickingSide.remove();
+
+    let resultImg;
+
+    resultImg = createImg(GameOverImg);
+
+    resultImg.addClass("resultImg")
+    let restartBtn = createImg(RestartImg);
+    restartBtn.addClass("button redirect restart");
+    let backBtn = createImg(BackToMainImg);
+    backBtn.addClass("button redirect back");
+    restartBtn.mousePressed(function() {location.reload();});
+    backBtn.mousePressed(function(){location.href='index.html';});
 }

@@ -7,7 +7,7 @@ a {
     color: #00B7FF;
 }
 
-.phoneSide {
+#phoneSide {
 
     height: 670px;
     width: 350px;
@@ -15,7 +15,7 @@ a {
     background-color: #FF9838;
 }
 
-.pickingSide {
+#pickingSide {
 
 }
 
@@ -42,4 +42,29 @@ a {
     height: 80px;
     text-align: center;
     line-height: 80px;
+}
+
+.resultImg {
+    position: absolute;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.redirect{
+    position: absolute;
+    z-index: 99;
+    width: 15%;
+    margin-top: 35%;
+}
+
+.restart{
+    margin-left: 55%;
+}
+
+.button{
+    cursor: pointer;
+}
+
+.back{
+    margin-left: 30%;
 }

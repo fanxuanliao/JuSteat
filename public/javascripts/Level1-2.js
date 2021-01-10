@@ -9,22 +9,30 @@ let space = [];
 
 let item_missed;
 
-let cnv;
+let draggingSideCanvas;
+let canvasBackGroundImg;
+
+let GameOverImg = "../assets/Second_Round-End-1.png", SuccessImg = "../assets/Round-Success-1-1.png";
+let RestartImg = "../assets/Restart.png", BackToMainImg = "../assets/回到主畫面.png";
 
 function preload(){
     foodImgOne = loadImage('../assets/第一關/drink.png');
     foodImgTwo = loadImage('../assets/第一關/fries.png');
     foodImgThree = loadImage('../assets/第一關/burgur.png');
     foodImgFour = loadImage('../assets/第一關/ICE.png');
+
+    canvasBackGroundImg = loadImage('../assets/第一關/bikeidle.gif');
 }
 
 function setup() {
     /*
     *   把canvas放在手機介面的右邊，故設定position為(410,58)，這是慢慢調出來的結果。
     * */
-    cnv = createCanvas(850, 670);
-    cnv.position(410,58);
-    cnv.parent("level_one_canvas");
+    draggingSideCanvas = createCanvas(850, 670);
+    draggingSideCanvas.position(410,58);
+
+    //canvasBackGroundImg.width = canvasBackGroundImg.width * 0.98;
+    //canvasBackGroundImg.height = canvasBackGroundImg.height * ;
 
     food[0] = new Food(75,15, foodImgOne);
     food[1] = new Food(267,17, foodImgTwo);
@@ -36,10 +44,10 @@ function setup() {
     space[2] = new Rect(466,30);
     space[3] = new Rect(658,30);
 
-    selected_food[0] = new Selected_food(300, 290, foodImgOne); //drink
-    selected_food[1] = new Selected_food(190, 380, foodImgTwo); //fries
-    selected_food[2] = new Selected_food(470, 300, foodImgThree); //burger
-    selected_food[3] = new Selected_food(365, 380, foodImgFour); //ice cream
+    selected_food[0] = new Selected_food(20,  187, foodImgOne); //drink
+    selected_food[1] = new Selected_food(105, 190, foodImgTwo); //fries
+    selected_food[2] = new Selected_food(235, 190, foodImgThree); //burger
+    selected_food[3] = new Selected_food(335, 190, foodImgFour); //ice cream
 
     item_missed = int(random(0,3));
     selected_food[item_missed].selected = false;
@@ -51,6 +59,9 @@ function draw() {
     fill(221,0,0);
     stroke(51);
     strokeWeight(10);
+
+    image(canvasBackGroundImg,0,175);
+
     rect(0,0,850,175);  //置放欄紅色底部
 
     for(let j = 0; j < space.length; j++){
@@ -156,8 +167,8 @@ class Selected_food{
     }
 
     display(){
-        this.img.width = this.img.width * 1.5;
-        this.img.height = this.img.height * 1.5;
+        this.img.width = this.img.width * 1.25;
+        this.img.height = this.img.height * 1.25;
 
         if(this.dragging){
             this.x = mouseX - (this.img.width/2);
@@ -177,8 +188,8 @@ class Selected_food{
             image(this.img, this.x, this.y);
         }
 
-        this.img.width = this.img.width / 1.5;
-        this.img.height = this.img.height / 1.5;
+        this.img.width = this.img.width / 1.25;
+        this.img.height = this.img.height / 1.25;
     }
 
     over(){
@@ -191,4 +202,33 @@ class Selected_food{
             return false;
         }
     }
+}
+
+function showResult(){
+    let rmPhoneSide = document.getElementById("phoneSide");
+    rmPhoneSide.remove();
+
+    let rmButtonPage = document.getElementById("button page");
+    rmButtonPage.remove();
+
+    let rmDraggingSide = document.getElementById("draggingSide");
+    rmDraggingSide.remove();
+
+    let resultImg;
+
+    if(selected_food[0].selected && selected_food[1].selected && selected_food[2].selected && selected_food[3].selected) {
+        resultImg = createImg(SuccessImg);
+    } else {
+        resultImg = createImg(GameOverImg);
+    }
+
+    draggingSideCanvas.clear();
+
+    resultImg.addClass("resultImg")
+    let restartBtn = createImg(RestartImg);
+    restartBtn.addClass("button redirect restart");
+    let backBtn = createImg(BackToMainImg);
+    backBtn.addClass("button redirect back");
+    restartBtn.mousePressed(function() {location.reload();});
+    backBtn.mousePressed(function(){location.href='index.html';});
 }
