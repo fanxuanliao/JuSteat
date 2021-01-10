@@ -82,17 +82,14 @@ a {
     margin-top: 35%;
 }
 
-.restart{
-    margin-left: 55%;
-}
-
 .button{
     cursor: pointer;
 }
 
-.back{
+.next{
     margin-left: 30%;
 }
+
 
 #guide_button {
     background-image: url(../assets/Guide/level1.png);
@@ -120,4 +117,12 @@ a {
     top: 50%;
     left: 50%;
     margin: -335px 0 0 -600px;
+}
+
+.restart {
+    margin-left: 30%;
+}
+
+.back {
+    margin-left: 55%;
 }

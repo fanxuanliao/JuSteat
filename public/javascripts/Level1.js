@@ -124,8 +124,8 @@ function check(){
         let rmPhoneSide = document.getElementById("phoneSide");
         rmPhoneSide.remove();
 
-        let rmButtonPage = document.getElementById("button page");
-        rmButtonPage.remove();
+        //let rmButtonPage = document.getElementById("button page");
+        //rmButtonPage.remove();
 
         let rmPickingSide = document.getElementById("pickingSide");
         rmPickingSide.remove();
@@ -148,8 +148,8 @@ function showResult(){
     let rmPhoneSide = document.getElementById("phoneSide");
     rmPhoneSide.remove();
 
-    let rmButtonPage = document.getElementById("button page");
-    rmButtonPage.remove();
+    //let rmButtonPage = document.getElementById("button page");
+    //rmButtonPage.remove();
 
     let rmPickingSide = document.getElementById("pickingSide");
     rmPickingSide.remove();
