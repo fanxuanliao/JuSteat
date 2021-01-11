@@ -1,3 +1,4 @@
+let START = false; //遊戲開始
 var lastAddTime = 0;  //上次生成物件的時間（第一道）
 var lastAddTime2 = 0; //上次生成物件的時間（第二道)
 var lastAddTime3 = 0; //上次生成物件的時間（第三道)
@@ -12,6 +13,12 @@ var backimg;          //背景圖片
 var backimg_loc = 0;  //背景圖片位置
 let GameOverImg = "./assets/Level2/Second_Round-End-1.png", SuccessImg = "./assets/Level2/Round-Success-2-1.png";
 let RestartImg = "./assets/Level2/Restart.png", BackToMainImg = "./assets/Level2/回到主畫面.png", NextLevelImg = "./assets/Level2/Next.png";
+
+function start(){
+    let rmGuide = document.getElementById("guide_button");
+    rmGuide.remove();
+    START = true;
+}
 
 // 外送員class
 class Motorcycle{
@@ -146,34 +153,40 @@ function draw() {
     backGroundPicture();
     motorcycle.show()
     // random產生障礙物 1st
-    var interval = random(4000,6000);
-    var nowtime = 60 - parseInt((millis() - gametime)/1000);
+    var interval = random(4000, 6000);
+    if (!START) {
+        var nowtime = 60;
+        gametime = millis();
+    }
+    else{
+        var nowtime = 60 - parseInt((millis() - gametime) / 1000);
+    }
     console.log(nowtime);
     textAlign(LEFT);
     textSize(60);
-    text("Time: "+nowtime,950,0,width/2, height/2);
+    text("Time: " + nowtime, 950, 0, width / 2, height / 2);
 
-    if (millis()-lastAddTime > interval) {
+    if (millis() - lastAddTime > interval) {
         traffics.push(new Traffic());
         lastAddTime = millis();
     }
     // random產生障礙物 2nd
-    var interval2 = random(6000,8000);
-    if (millis()-lastAddTime2 > interval2) {
+    var interval2 = random(6000, 8000);
+    if (millis() - lastAddTime2 > interval2) {
         traffics2.push(new Traffic2());
         lastAddTime2 = millis();
     }
     // random產生障礙物 3rd
-    var interval3 = random(5000,9000);
-    if (millis()-lastAddTime3 > interval3) {
+    var interval3 = random(5000, 9000);
+    if (millis() - lastAddTime3 > interval3) {
         traffics3.push(new Traffic3());
         lastAddTime3 = millis();
     }
     //1st
-    for(let c of traffics){
-        if (nowtime <= 0){
+    for (let c of traffics) {
+        if (nowtime <= 0) {
             delete c.x;
-            for(var i=0; i<5; i++){
+            for (var i = 0; i < 5; i++) {
                 lifes[i].remove();
             }
             showResult();
@@ -181,38 +194,37 @@ function draw() {
         }
         c.move();
         c.show();
-        if(motorcycle.hits(c)){ //碰撞偵測
-            if(c.flag !=3 ){
+        if (motorcycle.hits(c)) { //碰撞偵測
+            if (c.flag != 3) {
                 delete c.x;
                 console.log(motorcycle.life)
                 heart_x -= 60;
                 motorcycle.life -= 1;
                 lifes[motorcycle.life].remove(); // 移除一顆心
-            }
-            else if(c.flag == 3){
+            } else if (c.flag == 3) {
                 delete c.x;
                 console.log(motorcycle.life)
-                if(motorcycle.life<5){
-                    lifes[motorcycle.life] = createSprite(heart_x,30) // 加上一顆心
+                if (motorcycle.life < 5) {
+                    lifes[motorcycle.life] = createSprite(heart_x, 30) // 加上一顆心
                     lifes[motorcycle.life].addImage(loadImage('./assets/heart.png'));
                     motorcycle.life += 1;
                     heart_x += 60;
                 }
             }
         }
-        if(motorcycle.life == 0){
+        if (motorcycle.life == 0) {
             showResult();
             noLoop();
         }
-        if(c.x<0){
+        if (c.x < 0) {
             delete c.x;
         }
     }
     //2nd
-    for(let c of traffics2){
-        if (nowtime <= 0){
+    for (let c of traffics2) {
+        if (nowtime <= 0) {
             delete c.x;
-            for(var i=0; i<5; i++){
+            for (var i = 0; i < 5; i++) {
                 lifes[i].remove();
             }
             showResult();
@@ -220,19 +232,18 @@ function draw() {
         }
         c.move();
         c.show();
-        if(motorcycle.hits(c)){
-            if(c.flag !=3 ){
+        if (motorcycle.hits(c)) {
+            if (c.flag != 3) {
                 delete c.x;
                 console.log(motorcycle.life)
                 heart_x -= 60;
                 motorcycle.life -= 1;
                 lifes[motorcycle.life].remove(); // 移除一顆心
-            }
-            else if(c.flag == 3){
+            } else if (c.flag == 3) {
                 delete c.x;
                 console.log(motorcycle.life)
-                if(motorcycle.life<5){
-                    lifes[motorcycle.life] = createSprite(heart_x,30) // 加上一顆心
+                if (motorcycle.life < 5) {
+                    lifes[motorcycle.life] = createSprite(heart_x, 30) // 加上一顆心
                     lifes[motorcycle.life].addImage(loadImage('./assets/heart.png'));
                     motorcycle.life += 1;
                     heart_x += 60;
@@ -240,19 +251,19 @@ function draw() {
 
             }
         }
-        if(motorcycle.life == 0){
+        if (motorcycle.life == 0) {
             showResult();
             noLoop();
         }
-        if(c.x<0){
+        if (c.x < 0) {
             delete c.x;
         }
     }
     //3rd
-    for(let c of traffics3){
-        if (nowtime <= 0){
+    for (let c of traffics3) {
+        if (nowtime <= 0) {
             delete c.x;
-            for(var i=0; i<5; i++){
+            for (var i = 0; i < 5; i++) {
                 lifes[i].remove();
             }
             showResult();
@@ -260,49 +271,46 @@ function draw() {
         }
         c.move();
         c.show();
-        if(motorcycle.hits(c)){
-            if(c.flag !=3 ){
+        if (motorcycle.hits(c)) {
+            if (c.flag != 3) {
                 delete c.x;
                 console.log(motorcycle.life)
                 heart_x -= 60;
                 motorcycle.life -= 1;
                 lifes[motorcycle.life].remove(); // 移除一顆心
-            }
-            else if(c.flag == 3){
+            } else if (c.flag == 3) {
                 delete c.x;
                 console.log(motorcycle.life)
-                if(motorcycle.life<5){
-                    lifes[motorcycle.life] = createSprite(heart_x,30) // 加上一顆心
+                if (motorcycle.life < 5) {
+                    lifes[motorcycle.life] = createSprite(heart_x, 30) // 加上一顆心
                     lifes[motorcycle.life].addImage(loadImage('./assets/heart.png'));
                     motorcycle.life += 1;
                     heart_x += 60;
                 }
             }
         }
-        if(motorcycle.life == 0){
+        if (motorcycle.life == 0) {
             showResult();
             noLoop();
         }
-        if(c.x<0){
+        if (c.x < 0) {
             delete c.x;
         }
     }
 
     //操控外送員
-    if (keyWentDown(DOWN_ARROW)){
+    if (keyWentDown(DOWN_ARROW)) {
         motorcycle.y += 180;
-    }
-    else if (keyWentDown(UP_ARROW)){
+    } else if (keyWentDown(UP_ARROW)) {
         motorcycle.y -= 180;
-    }
-    else{
+    } else {
         motorcycle.y += 0;
     }
     //移動位置限制
-    if (motorcycle.y > 530){
+    if (motorcycle.y > 530) {
         motorcycle.y = 530;
     }
-    if (motorcycle.y < 180){
+    if (motorcycle.y < 180) {
         motorcycle.y = 180;
     }
 

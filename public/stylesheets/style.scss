@@ -72,6 +72,20 @@ button.level3 {
 
 }
 
+button.level2 {
+  background-image: url(../assets/Guide/level2.png);
+  background-size: cover;
+  border: 0px;
+  width: 1200px;
+  height: 670px;
+  z-index: 1;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -335px 0 0 -600px;
+}
+
   //Level1,2
   #container{
     width: 1200px;
